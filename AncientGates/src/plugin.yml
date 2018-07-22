@@ -1,0 +1,179 @@
+name: AncientGates
+version: 2.2
+description: Easily create portals with any custom design.
+main: org.mcteam.ancientgates.Plugin
+load: postworld
+author: brunyman
+api-version: 1.13
+softdepend:
+    - Vault
+    - Multiverse-Core
+    - MultiWorld
+commands:
+  gate:
+    description: All of the Ancient Gates commands.
+    usage: See documentation.
+permissions:
+  ancientgates.*:
+    description: Gives access to all Ancient Gates and commands.
+    children:
+      ancientgates.addserver: true
+      ancientgates.addto: true
+      ancientgates.close: true
+      ancientgates.closeall: true
+      ancientgates.create: true
+      ancientgates.delete: true
+      ancientgates.help: true
+      ancientgates.info: true
+      ancientgates.info.exec: true
+      ancientgates.list: true
+      ancientgates.listserver: true
+      ancientgates.open: true
+      ancientgates.openall: true
+      ancientgates.remexec: true
+      ancientgates.remserver: true
+      ancientgates.remto: true
+      ancientgates.rename: true
+      ancientgates.setbungeetype: true
+      ancientgates.setconf: true
+      ancientgates.setcost: true
+      ancientgates.setentities: true
+      ancientgates.setexec: true
+      ancientgates.setfrom: true
+      ancientgates.setinv: true
+      ancientgates.setmaterial: true
+      ancientgates.setmessage: true
+      ancientgates.setvehicles: true
+      ancientgates.tpfrom: true
+      ancientgates.tpto: true
+      ancientgates.addfrom.*: true
+      ancientgates.remfrom.*: true
+      ancientgates.setto.*: true
+      ancientgates.use.*: true
+      ancientgates.econbypass: true
+  ancientgates.close:
+    description: Allows the use of Ancient Gates close command.
+    default: op
+  ancientgates.closeall:
+    description: Allows the use of Ancient Gates closeall command.
+    default: op
+  ancientgates.create:
+    description: Allows the use of Ancient Gates create command.
+    default: op
+  ancientgates.delete:
+    description: Allows the use of Ancient Gates delete command.
+    default: op
+  ancientgates.help:
+    description: Allows the use of Ancient Gates help command.
+    default: op
+  ancientgates.info:
+    description: Allows the use of Ancient Gates info command.
+    default: op
+  ancientgates.info.exec:
+    description: Allows access to exec info in info command.
+    default: op
+  ancientgates.list:
+    description: Allows the use of Ancient Gates list command.
+    default: op
+  ancientgates.open:
+    description: Allows the use of Ancient Gates open command.
+    default: op
+  ancientgates.openall:
+    description: Allows the use of Ancient Gates openall command.
+    default: op
+  ancientgates.remexec:
+    description: Allows the use of Ancient Gates remexec command.
+    default: op
+  ancientgates.rename:
+    description: Allows the use of Ancient Gates rename command.
+    default: op
+  ancientgates.setbungeetype:
+    description: Allows the use of Ancient Gates setbungeetype command.
+    default: op
+  ancientgates.setconf:
+    description: Allows the use of Ancient Gates setconf command.
+    default: op
+  ancientgates.setcost:
+    description: Allows the use of Ancient Gates setcost command.
+    default: op
+  ancientgates.setentities:
+    description: Allows the use of Ancient Gates setentities command.
+    default: op
+  ancientgates.setexec:
+    description: Allows the use of Ancient Gates setexec command.
+    default: op
+  ancientgates.setfrom:
+    description: Allows the use of Ancient Gates setfrom command.
+    default: op
+  ancientgates.setinv:
+    description: Allows the use of Ancient Gates setinventory command.
+    default: op
+  ancientgates.setmaterial:
+    description: Allows the use of Ancient Gates setmaterial command.
+    default: op
+  ancientgates.setmessage:
+    description: Allows the use of Ancient Gates setmessage command.
+    default: op
+  ancientgates.setvehicles:
+    description: Allows the use of Ancient Gates setvehicles command.
+    default: op
+  ancientgates.tpfrom:
+    description: Allows the use of Ancient Gates tpfrom command.
+    default: op
+  ancientgates.tpto:
+    description: Allows the use of Ancient Gates tpto command.
+    default: op
+  ancientgates.addfrom:
+    description: Allows the use of Ancient Gates addfrom command.
+    default: op
+  ancientgates.remfrom:
+    description: Allows the use of Ancient Gates remfrom command.
+    default: op
+  ancientgates.addto.*:
+    description: Allows the use of Ancient Gates addto command globally.
+    children:
+      ancientgates.addto.local: true
+      ancientgates.addto.bungee: true
+  ancientgates.addto.local:
+    description: Allows the use of Ancient Gates addto command locally.
+    default: op
+  ancientgates.addto.bungee:
+    description: Allows the use of Ancient Gates addto command externally.
+    default: op
+  ancientgates.remto.*:
+    description: Allows the use of Ancient Gates remto command globally.
+    children:
+      ancientgates.remto.local: true
+      ancientgates.remto.bungee: true
+  ancientgates.remto.local:
+    description: Allows the use of Ancient Gates remto command locally.
+    default: op
+  ancientgates.remto.bungee:
+    description: Allows the use of Ancient Gates remto command externally.
+    default: op
+  ancientgates.setto.*:
+    description: Allows the use of Ancient Gates setto command globally.
+    children:
+      ancientgates.setto.local: true
+      ancientgates.setto.bungee: true
+  ancientgates.setto.local:
+    description: Allows the use of Ancient Gates setto command locally.
+    default: op
+  ancientgates.setto.bungee:
+    description: Allows the use of Ancient Gates setto command externally.
+    default: op
+  ancientgates.use.*:
+    description: Gives access to all Ancient Gates.
+    default: op
+  ancientgates.econbypass:
+    description: Bypasses gate costs on all Ancient Gates.
+    default: op
+  ancientgates.addserver:
+    description: Allows the use of Ancient Gates addserver command.
+    default: op
+  ancientgates.remserver:
+    description: Allows the use of Ancient Gates remserver command.
+    default: op
+  ancientgates.serverlist:
+    description: Allows the use of Ancient Gates serverlist command.
+    default: op

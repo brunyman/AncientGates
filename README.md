@@ -4,7 +4,7 @@ Ancient Gates Reloaded, Updated for 1.13
 
 Ancient Gates Reloaded by peewi96 
 
-Original Author: Olof 
+Original Author: Olof Larsson 
 
 Updated by NoChanceSD for 1.8 
 

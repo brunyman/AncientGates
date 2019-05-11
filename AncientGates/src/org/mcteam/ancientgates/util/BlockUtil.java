@@ -15,13 +15,13 @@ public class BlockUtil {
 
 	static {
 		standableGateMaterials = new HashSet<>();
-		standableGateMaterials.add(Material.LEGACY_PISTON_MOVING_PIECE);
+		standableGateMaterials.add(Material.PISTON_HEAD);
 		standableGateMaterials.add(Material.END_PORTAL);
 		standableGateMaterials.add(Material.LAVA);
 		standableGateMaterials.add(Material.NETHER_PORTAL);
 		standableGateMaterials.add(Material.LAVA);
 		standableGateMaterials.add(Material.WATER);
-		standableGateMaterials.add(Material.LEGACY_SUGAR_CANE_BLOCK);
+		standableGateMaterials.add(Material.SUGAR_CANE);
 		standableGateMaterials.add(Material.WATER);
 		standableGateMaterials.add(Material.COBWEB);
 	}
@@ -40,9 +40,9 @@ public class BlockUtil {
 			standableMaterials.put(Material.COBWEB, true); // 30 Cobweb
 			standableMaterials.put(Material.TALL_GRASS, true); // 31 Tall Grass
 			standableMaterials.put(Material.DEAD_BUSH, true); // 32 Dead Bush
-			standableMaterials.put(Material.LEGACY_PISTON_MOVING_PIECE, true); // 36 Piston (Moving)
-			standableMaterials.put(Material.DANDELION_YELLOW, true); // 37 Dandelion
-			standableMaterials.put(Material.ROSE_RED, true); // 38 Rose
+			standableMaterials.put(Material.PISTON_HEAD, true); // 36 Piston (Moving)
+			//standableMaterials.put(Material.DANDELION_YELLOW, true); // 37 Dandelion
+			//standableMaterials.put(Material.ROSE_RED, true); // 38 Rose
 			standableMaterials.put(Material.BROWN_MUSHROOM, true); // 39 Brown Mushroom
 			standableMaterials.put(Material.RED_MUSHROOM, true); // 40 Red Mushroom
 			standableMaterials.put(Material.STONE_SLAB, false); // 44 Stone Slab
@@ -50,10 +50,10 @@ public class BlockUtil {
 			standableMaterials.put(Material.FIRE, true); // 51 Fire
 			standableMaterials.put(Material.REDSTONE_WIRE, true); // 55 Redstone Wire
 			standableMaterials.put(Material.WHEAT_SEEDS, true); // 59 Wheat Seeds
-			standableMaterials.put(Material.SIGN, true); // 63 Sign Post
+			//standableMaterials.put(Material.SIGN, true); // 63 Sign Post
 			standableMaterials.put(Material.LADDER, true); // 65 Ladders
 			standableMaterials.put(Material.RAIL, true); // 66 Rails
-			standableMaterials.put(Material.WALL_SIGN, true); // 68 Wall Sign
+			//standableMaterials.put(Material.WALL_SIGN, true); // 68 Wall Sign
 			standableMaterials.put(Material.LEVER, true); // 69 Lever
 			standableMaterials.put(Material.STONE_PRESSURE_PLATE, true); // 70 Stone Pressure Plate
 			standableMaterials.put(Material.OAK_PRESSURE_PLATE, true); // 72 Wooden Pressure Plate
@@ -61,7 +61,7 @@ public class BlockUtil {
 			standableMaterials.put(Material.REDSTONE_TORCH, true); // 76 Redstone Torch (On)
 			standableMaterials.put(Material.STONE_BUTTON, true); // 77 Stone Button
 			standableMaterials.put(Material.SNOW, true); // 78 Snow
-			standableMaterials.put(Material.LEGACY_SUGAR_CANE_BLOCK, true); // 83 Sugar Cane
+			standableMaterials.put(Material.SUGAR_CANE, true); // 83 Sugar Cane
 			standableMaterials.put(Material.NETHER_PORTAL, true); // 90 Portal
 			standableMaterials.put(Material.REPEATER, true); // 93 Redstone Repeater (Off)
 			standableMaterials.put(Material.REPEATER, true); // 94 Redstone Repeater (On)

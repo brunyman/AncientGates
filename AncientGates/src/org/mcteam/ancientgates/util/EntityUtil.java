@@ -116,12 +116,12 @@ public class EntityUtil {
 						data += ((Tameable) entity).getOwner().getName() + ",";
 						data += String.valueOf(((Wolf) entity).getCollarColor()) + ",";
 					}
-				} else if (entity instanceof Ocelot) {
+				} /*else if (entity instanceof Ocelot) {
 					if (((Ocelot) entity).isTamed()) {
 						data += ((Tameable) entity).getOwner().getName() + ",";
 						data += String.valueOf(((Ocelot) entity).getCatType().name()) + ",";
 					}
-				} else if (entity instanceof Pig) {
+				}*/ else if (entity instanceof Pig) {
 					data += String.valueOf(((Pig) entity).hasSaddle()) + ",";
 				} else if (entity instanceof Horse) {
 					data += "deprecated" + ",";

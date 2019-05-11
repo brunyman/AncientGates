@@ -1,5 +1,5 @@
 # AncientGates
-Ancient Gates Reloaded, Updated for 1.13
+Ancient Gates Reloaded, Updated for 1.13 - 1.14
 
 
 Ancient Gates Reloaded by peewi96 

@@ -54,8 +54,7 @@ public class CommandHelp extends BaseCommand {
 		lines.add(new CommandCreate().getUsageTemplate(true, true));
 		lines.add(new CommandSetFrom().getUsageTemplate(true, true));
 		lines.add(new CommandSetTo().getUsageTemplate(true, true));
-		if (!Conf.useVanillaPortals)
-			lines.add(new CommandSetMaterial().getUsageTemplate(true, true));
+		lines.add(new CommandSetMaterial().getUsageTemplate(true, true));
 		lines.add(new CommandOpen().getUsageTemplate(true, true));
 		lines.add(new CommandClose().getUsageTemplate(true, true));
 		lines.add(new CommandDelete().getUsageTemplate(true, true));

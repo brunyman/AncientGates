@@ -12,6 +12,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityPortalEvent;
+import org.bukkit.event.entity.EntityTeleportEvent;
 import org.mcteam.ancientgates.Conf;
 import org.mcteam.ancientgates.Gate;
 import org.mcteam.ancientgates.Plugin;
@@ -25,6 +26,27 @@ public class PluginEntityListener implements Listener {
 
 	public PluginEntityListener(final Plugin plugin) {
 		this.plugin = plugin;
+	}
+
+	/*
+	 * All entities are currently forbidden from teleporting via End
+	 * Gateway-based gates - this is an arbitrary restriction imposed because
+	 * of the amount of code-rewriting that would be needed in order to prevent
+	 * item duplication exploits, but is at least consistent with the behavior
+	 * of Nether Portals
+	 */
+	@EventHandler(priority = EventPriority.HIGH)
+	public void onEntityTeleport(final EntityTeleportEvent event) {
+		if (event.isCancelled()) {
+			return;
+		}
+		
+		final WorldCoord entityCoord = new WorldCoord(event.getTo());
+		final Gate nearestGate = GateUtil.nearestGate(entityCoord, true);
+
+		if (nearestGate != null) {
+			event.setCancelled(true);
+		}
 	}
 
 	@EventHandler

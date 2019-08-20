@@ -2,6 +2,8 @@ package org.mcteam.ancientgates.listeners;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -15,6 +17,8 @@ import org.bukkit.event.entity.EntityPortalEnterEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.mcteam.ancientgates.Conf;
 import org.mcteam.ancientgates.Gate;
 import org.mcteam.ancientgates.Gates;
@@ -36,6 +40,7 @@ public class PluginPlayerListener implements Listener {
 	public Plugin plugin;
 
 	private final HashMap<Player, Location> playerLocationAtEvent = new HashMap<>();
+	private final Set<Player> teleportingPlayers = new HashSet<>();
 
 	public PluginPlayerListener(final Plugin plugin) {
 		this.plugin = plugin;
@@ -49,6 +54,8 @@ public class PluginPlayerListener implements Listener {
 
 		final Player player = event.getPlayer();
 		final String playerName = player.getName();
+
+		this.teleportingPlayers.remove(event.getPlayer());
 
 		// Ok so a player joins the server
 		// Find if they're in the BungeeCord in-bound teleport queue
@@ -124,6 +131,8 @@ public class PluginPlayerListener implements Listener {
 		final String playerName = event.getPlayer().getName();
 
 		// Clear player hashmaps
+		this.playerLocationAtEvent.remove(event.getPlayer());
+		this.teleportingPlayers.remove(event.getPlayer());
 		Plugin.lastMessageTime.remove(playerName);
 		Plugin.lastTeleportTime.remove(playerName);
 
@@ -142,16 +151,63 @@ public class PluginPlayerListener implements Listener {
 		}
 	}
 
+	/*
+	 * Unlike Nether Portals and End Portals, using an End Gateway triggers a
+	 * PlayerTeleportEvent:
+	 */
+	@EventHandler(priority = EventPriority.HIGH)
+	public void onPlayerTeleport(final PlayerTeleportEvent event) {
+		if (event.isCancelled()) {
+			return;
+		}
+
+		// If a teleportation is in progress for this player, the triggering of
+		// a plugin-caused PlayerTeleportEvent means it has completed - there's
+		// no need to do anything else
+		if (event.getCause() == TeleportCause.PLUGIN) {
+			this.teleportingPlayers.remove(event.getPlayer());
+			return;
+		}
+
+		// End Gateways are the only cause of teleportation we care about here
+		if (event.getCause() != TeleportCause.END_GATEWAY) {
+			return;
+		}
+
+		// Coming into contact with an End Gateway that teleports to itself will
+		// often trigger multiple PlayerTeleportEvents - ignore any after the
+		// first one
+		if (this.teleportingPlayers.contains(event.getPlayer())) {
+			return;
+		}
+
+		// From this point onwards, handling a gate-related PlayerTeleportEvent
+		// is identical to handling a PlayerPortalEvent - pretend that the
+		// player's location is the End Gateway's teleportation destination,
+		// which we use as a proxy for the End Gateway block itself
+		handleTeleportEvents(event, event.getTo());
+	}
+
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerPortal(final PlayerPortalEvent event) {
 		if (event.isCancelled()) {
 			return;
 		}
+
+		if (event.getCause() != TeleportCause.NETHER_PORTAL && event.getCause() != TeleportCause.END_PORTAL) {
+			return;
+		}
+
+		// From this point onwards, handling a gate-related PlayerPortalEvent
+		// is identical to handling a PlayerTeleportEvent
+		handleTeleportEvents(event, this.playerLocationAtEvent.remove(event.getPlayer()));
+	}
+
+	private void handleTeleportEvents(final PlayerTeleportEvent event, Location playerLocation) {
 		final Player player = event.getPlayer();
 
-		// Ok so a player portal event begins
-		// Find the nearest gate!
-		final WorldCoord playerCoord = new WorldCoord(this.playerLocationAtEvent.get(player));
+		// Find the nearest gate
+		final WorldCoord playerCoord = new WorldCoord(playerLocation);
 		final Gate nearestGate = Gates.gateFromPortal(playerCoord);
 
 		if (nearestGate != null) {
@@ -193,10 +249,14 @@ public class PluginPlayerListener implements Listener {
 				return;
 			}
 
-			// Teleport the player (Nether method)
 			if (nearestGate.getTo() == null && nearestGate.getBungeeTo() == null && nearestGate.getCommand() == null) {
 				player.sendMessage(String.format("This gate does not point anywhere :P"));
-			} else if (nearestGate.getTo() != null) {
+				return;
+			}
+
+			// Teleport the player (Nether method)
+			this.teleportingPlayers.add(player);
+			if (nearestGate.getTo() != null) {
 				TeleportUtil.teleportPlayer(player, nearestGate.getTo(), nearestGate.getTeleportEntities(), nearestGate.getTeleportInventory());
 
 				if (nearestGate.getCommand() != null)

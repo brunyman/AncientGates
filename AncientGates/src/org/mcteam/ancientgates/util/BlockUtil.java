@@ -17,6 +17,7 @@ public class BlockUtil {
 		standableGateMaterials = new HashSet<>();
 		standableGateMaterials.add(Material.PISTON_HEAD);
 		standableGateMaterials.add(Material.END_PORTAL);
+		standableGateMaterials.add(Material.END_GATEWAY);
 		standableGateMaterials.add(Material.LAVA);
 		standableGateMaterials.add(Material.NETHER_PORTAL);
 		standableGateMaterials.add(Material.LAVA);
@@ -83,13 +84,14 @@ public class BlockUtil {
 			standableMaterials.put(Material.DAYLIGHT_DETECTOR, false); // 151 Daylight Sensor
 			standableMaterials.put(Material.ACTIVATOR_RAIL, true); // 157 Activator Rail
 			standableMaterials.put(Material.WHITE_CARPET, true); // 171 Carpet
+			standableMaterials.put(Material.END_GATEWAY, true); // 209 End Gateway
 			//standableMaterials.put(Material.DOUBLE_PLANT, true); // double_plant Double Plants
 		} catch (final NoSuchFieldError e) {
 		} // Support previous MC versions
 	}
 
 	public static boolean isPortalGateMaterial(final Material material) {
-		return material.equals(Material.NETHER_PORTAL) || material.equals(Material.END_PORTAL);
+		return material.equals(Material.NETHER_PORTAL) || material.equals(Material.END_PORTAL) || material.equals(Material.END_GATEWAY);
 	}
 
 	public static boolean isStandableGateMaterial(final Material material) {

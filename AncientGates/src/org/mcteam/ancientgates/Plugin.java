@@ -197,8 +197,8 @@ public class Plugin extends JavaPlugin {
 		commands.add(new CommandSetEntities());
 		if (!Conf.useVanillaPortals) {
 			commands.add(new CommandSetVehicles());
-			commands.add(new CommandSetMaterial());
 		}
+		commands.add(new CommandSetMaterial());
 		commands.add(new CommandSetInventory());
 		commands.add(new CommandTeleportFrom());
 		commands.add(new CommandTeleportTo());

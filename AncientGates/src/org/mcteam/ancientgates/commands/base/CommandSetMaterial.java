@@ -28,9 +28,12 @@ public class CommandSetMaterial extends BaseCommand {
 	public void perform() {
 		final String material = parameters.get(1).toUpperCase();
 
-		if (GateMaterial.fromName(material) == null) {
+		// Whether the given gate material is valid depends on whether only
+		// vanilla portal blocks are allowed:
+		final GateMaterial materialFromName = GateMaterial.fromName(material);
+		if (materialFromName == null || (Conf.useVanillaPortals && !materialFromName.isVanilla())) {
 			sendMessage("This is not a valid gate material. Valid materials:");
-			sendMessage(TextUtil.implode(Arrays.asList(GateMaterial.names), Conf.colorSystem + ", "));
+			sendMessage(TextUtil.implode(Arrays.asList(Conf.useVanillaPortals ? GateMaterial.vanillaNames : GateMaterial.names), Conf.colorSystem + ", "));
 			return;
 		}
 

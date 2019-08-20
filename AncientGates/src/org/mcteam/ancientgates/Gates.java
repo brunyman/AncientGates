@@ -6,6 +6,7 @@ import java.util.Map;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.block.BlockState;
+import org.bukkit.block.EndGateway;
 import org.bukkit.material.MaterialData;
 import org.mcteam.ancientgates.util.BlockUtil;
 import org.mcteam.ancientgates.util.types.FloodOrientation;
@@ -115,6 +116,27 @@ public class Gates {
 			}
 
 			coord.getBlock().setType(material);
+
+			if (material == Material.END_GATEWAY) {
+				EndGateway eg = (EndGateway) coord.getBlock().getState();
+
+				// Prevent beams appearing every 2400 ticks by assigning them
+				// the lowest possible negative age (see MC-107824)
+				eg.setAge(Long.MIN_VALUE);
+
+				// We need to know the location of the End Gateway block that
+				// triggers a PlayerTeleportEvent to figure out whether that
+				// event is gate-related, but this information isn't provided to
+				// the event handler, even when the cause is the player coming
+				// into contact with an End Gateway block - work around this by
+				// making the End Gateway block teleport to itself, so the
+				// teleportation destination becomes a proxy for the block's
+				// location
+				eg.setExitLocation(coord.getLocation());
+				eg.setExactTeleport(true);
+
+				eg.update(true);
+			}
 
 			// Stop ice forming based on biome (horizontal water portals)
 			if (orientation == FloodOrientation.HORIZONTAL && gate.getMaterial() == Material.WATER) {
